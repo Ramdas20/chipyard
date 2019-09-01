@@ -31,3 +31,6 @@
 [submodule "generators/hwacha"]
 	path = generators/hwacha
 	url = https://github.com/ucb-bar/hwacha.git
+[submodule "generators/can_controller"]
+	path = generators/can_controller
+	url = https://github.com/sifive/can_controller.git
