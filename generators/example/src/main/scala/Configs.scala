@@ -49,6 +49,10 @@ class GPIORocketConfig extends Config(
   new WithGPIO ++
   new WithGPIOBoomRocketTop ++
   new BaseRocketConfig)
+class CANTLRocketConfig extends Config(
+  new WithCAN ++
+  new WithCANBoomRocketTop ++
+  new BaseRocketConfig)
 
 class DualCoreRocketConfig extends Config(
   new WithNBigCores(2) ++

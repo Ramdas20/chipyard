@@ -11,6 +11,7 @@ import freechips.rocketchip.util.DontTouch
 import testchipip._
 
 import sifive.blocks.devices.gpio._
+import sifive.blocks.can._
 
 // -------------------------------
 // BOOM and/or Rocket Top Level Systems
@@ -46,6 +47,14 @@ class BoomRocketTopWithPWMAXI4(implicit p: Parameters) extends BoomRocketTop
 
 class BoomRocketTopWithPWMAXI4Module(l: BoomRocketTopWithPWMAXI4) extends BoomRocketTopModule(l)
   with HasPeripheryPWMAXI4ModuleImp
+//--------------------------------------------------------------------------------------------------------
+class BoomRocketTopWithCANTL(implicit p: Parameters) extends BoomRocketTop
+  with HasPeripheryCAN {
+  override lazy val module = new BoomRocketTopWithCANModule(this)
+}
+
+class BoomRocketTopWithCANModule(l: BoomRocketTopWithCANTL) extends BoomRocketTopModule(l)
+  with HasPeripheryCANModuleImp
 
 //---------------------------------------------------------------------------------------------------------
 

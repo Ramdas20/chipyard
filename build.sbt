@@ -46,7 +46,7 @@ def conditionalDependsOn(prj: Project): Project = {
 }
 
 lazy val example = conditionalDependsOn(project in file("generators/example"))
-  .dependsOn(boom, hwacha, sifive_blocks)
+  .dependsOn(boom, hwacha, sifive_blocks, can)
   .settings(commonSettings)
 
 lazy val utilities = conditionalDependsOn(project in file("generators/utilities"))
@@ -74,4 +74,8 @@ lazy val `barstools-macros` = (project in file("./tools/barstools/macros/"))
 
 lazy val sifive_blocks = (project in file("generators/sifive-blocks"))
   .dependsOn(rebarrocketchip)
+  .settings(commonSettings)
+
+lazy val can = (project in file("generators/can_controller"))
+  .dependsOn(rebarrocketchip,sifive_blocks)
   .settings(commonSettings)

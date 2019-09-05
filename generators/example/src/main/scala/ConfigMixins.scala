@@ -16,6 +16,7 @@ import testchipip._
 import hwacha.{Hwacha}
 
 import sifive.blocks.devices.gpio._
+import sifive.blocks.can._
 
 /**
  * TODO: Why do we need this?
@@ -45,6 +46,12 @@ class WithGPIO extends Config((site, here, up) => {
     GPIOParams(address = 0x10012000, width = 4, includeIOF = false))
 })
 
+class WithCAN extends Config((site, here, up) => {
+  case PeripheryCANKey => List(
+    CANParams(rAddress = 0x7000)
+  )
+})
+
 // -----------------------------------------------
 // BOOM and/or Rocket Top Level System Parameter Mixins
 // -----------------------------------------------
@@ -64,6 +71,15 @@ class WithNormalBoomRocketTop extends Config((site, here, up) => {
 class WithPWMBoomRocketTop extends Config((site, here, up) => {
   case BuildBoomRocketTop => (clock: Clock, reset: Bool, p: Parameters) =>
     Module(LazyModule(new BoomRocketTopWithPWMTL()(p)).module)
+})
+
+class WithCANBoomRocketTop extends Config((site, here, up) => {
+  case BuildBoomRocketTop => (clock: Clock, reset: Bool, p: Parameters) =>
+    val top = Module(LazyModule(new BoomRocketTopWithCANTL()(p)).module)
+    for (can <- top.can) {
+      can.in := true.B      
+    }
+    top
 })
 
 /**
